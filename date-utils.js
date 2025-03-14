@@ -1,4 +1,4 @@
-const axios = require('axios');
+import axios from 'axios';
 
 async function getCurrentDate() {
   try {
@@ -25,7 +25,7 @@ async function getEventsForDate(date) {
   }
 }
 
-module.exports = {
+export {
   getCurrentDate,
   getEventsForDate,
 };

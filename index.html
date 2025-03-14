@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>هوشینکا - دستیار هوش مصنوعی</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="mobile-header">
+            <h1>
+                <span class="logo-container">
+                    <i class="fas fa-feather-alt logo-owl"></i>
+                    <i class="fas fa-eye logo-owl-eye"></i>
+                </span>
+                هوشینکا
+            </h1>
+            <div class="mobile-controls">
+                <button id="history-toggle" title="تاریخچه چت">
+                    <i class="fas fa-history"></i>
+                </button>
+                <button id="theme-toggle"><i class="fas fa-sun"></i></button>
+            </div>
+        </div>
+
+        <div class="chat-history-mobile" id="chat-history-mobile">
+            <div class="history-header">
+                <h2>تاریخچه چت</h2>
+                <div class="history-actions">
+                    <button id="clear-history">پاک کردن تاریخچه</button>
+                    <button id="export-chat">دانلود تاریخچه</button>
+                </div>
+            </div>
+            <ul id="chat-history-list"></ul>
+        </div>
+
+        <div class="chat-area">
+            <div id="chat-log"></div>
+            <div id="loading-indicator" style="display: none;">
+                <div class="typing-indicator">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <p>دستیار هوش مصنوعی در حال پاسخ دادن...</p>
+            </div>
+            <div class="input-area">
+                <div class="input-controls">
+                    <button id="attach-file" title="پیوست فایل">
+                        <i class="fas fa-paperclip"></i>
+                    </button>
+                    <button id="voice-input" title="ورودی صوتی">
+                        <i class="fas fa-microphone"></i>
+                    </button>
+                </div>
+                <textarea id="user-input" rows="1" style="font-family: 'Vazirmatn', sans-serif;" 
+                    placeholder="پیام خود را بنویسید... (Shift + Enter برای خط جدید)"></textarea>
+                <button id="send-button">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+            <div class="chat-footer">
+                <span class="typing-status"></span>
+                <span class="character-count">0/1000</span>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal for settings -->
+    <div id="settings-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <h2>تنظیمات</h2>
+            <div class="settings-section">
+                <h3>تنظیمات زبان</h3>
+                <select id="language-select">
+                    <option value="fa">فارسی</option>
+                    <option value="en">English</option>
+                </select>
+            </div>
+            <div class="settings-section">
+                <h3>تنظیمات صدا</h3>
+                <label>
+                    <input type="checkbox" id="text-to-speech"> فعال‌سازی تبدیل متن به گفتار
+                </label>
+            </div>
+            <button id="close-settings">بستن</button>
+        </div>
+    </div>
+
+    <!-- اضافه کردن مدال راهنما -->
+    <div id="help-modal" class="modal" style="display: none;">
+        <div class="modal-content help-content">
+            <h2><i class="fas fa-book"></i> راهنمای استفاده از هوشینکا</h2>
+            <div class="help-sections">
+                <section class="help-section">
+                    <h3><i class="fas fa-robot"></i> معرفی هوشینکا</h3>
+                    <p>هوشینکا یک ربات هوش مصنوعی است که به صورت رایگان توسط سلمان حسین پور در اختیار عموم قرار گرفته است. این ربات می‌تواند به سوالات شما پاسخ دهد، در برنامه‌نویسی کمک کند و وظایف مختلف را انجام دهد. هرگونه استفاده غیرمجاز و سوء استفاده از این ربات بر عهده کاربر می‌باشد.</p>
+                </section>
+                
+                <section class="help-section">
+                    <h3><i class="fas fa-tools"></i> ابزارها</h3>
+                    <ul>
+                        <li><i class="fas fa-microphone"></i> <strong>ورودی صوتی:</strong> امکان ارسال پیام با صدا</li>
+                        <li><i class="fas fa-paperclip"></i> <strong>پیوست فایل:</strong> آپلود و ارسال محتوای فایل</li>
+                        <li><i class="fas fa-copy"></i> <strong>کپی کد:</strong> کپی کردن سریع بلوک‌های کد</li>
+                        <li><i class="fas fa-expand"></i> <strong>تمام صفحه:</strong> نمایش در حالت تمام صفحه</li>
+                        <li><i class="fas fa-sun"></i> <strong>تغییر تم:</strong> تغییر بین حالت روشن و تاریک</li>
+                    </ul>
+                </section>
+                
+                <section class="help-section">
+                    <h3><i class="fas fa-keyboard"></i> کلیدهای میانبر</h3>
+                    <ul>
+                        <li><strong>Enter:</strong> ارسال پیام</li>
+                        <li><strong>Shift + Enter:</strong> رفتن به خط جدید</li>
+                        <li><strong>Esc:</strong> بستن پنجره‌های باز</li>
+                    </ul>
+                </section>
+                
+                <section class="help-section">
+                    <h3><i class="fas fa-history"></i> مدیریت تاریخچه</h3>
+                    <ul>
+                        <li><strong>چت جدید:</strong> شروع یک مکالمه جدید</li>
+                        <li><strong>تاریخچه چت:</strong> دسترسی به مکالمات قبلی</li>
+                        <li><strong>دانلود تاریخچه:</strong> ذخیره مکالمات در فایل متنی</li>
+                    </ul>
+                </section>
+            </div>
+            <button id="close-help" class="close-button">متوجه شدم</button>
+        </div>
+    </div>
+
+    <input type="file" id="file-input" style="display: none" accept="image/*,.pdf,.doc,.docx,.txt">
+    
+    <script src="script.js"></script>
+</body>
+</html>

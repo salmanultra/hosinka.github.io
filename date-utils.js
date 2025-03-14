@@ -1,5 +1,4 @@
-import events from './events.json';
-import axios from 'axios';
+const axios = require('axios');
 
 async function getCurrentDate() {
   try {
@@ -15,16 +14,18 @@ async function getCurrentDate() {
   }
 }
 
-function getEventsForDate(date) {
-  const eventList = events.find(event => event.date === date);
-  if (eventList) {
-    return eventList.events;
-  } else {
+async function getEventsForDate(date) {
+  try {
+    const response = await axios.get('https://time.ir/api/json/today');
+    const data = response.data;
+    return data.events;
+  } catch (error) {
+    console.error('Error fetching events from time.ir:', error);
     return [];
   }
 }
 
-export {
+module.exports = {
   getCurrentDate,
   getEventsForDate,
 };
